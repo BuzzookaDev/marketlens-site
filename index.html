@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MarketLens.ph | Trending TikTok Finds & Shopee Deals</title>
+    <title>MarketLens.ph | Trending Sports Finds & Shopee Deals</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
@@ -38,17 +38,14 @@
         .shopee-gradient {
             background: linear-gradient(135deg, #EE4D2D 0%, #FF7337 100%);
         }
-        .hide-scrollbar::-webkit-scrollbar {
-            display: none;
+        .tiktok-gradient {
+            background: linear-gradient(135deg, #000000 0%, #25F4EE 100%);
         }
         [v-cloak] { display: none; }
-        .modal-enter { opacity: 0; transform: scale(0.95); }
-        .modal-active { opacity: 1; transform: scale(1); transition: all 0.2s ease-out; }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-900 font-sans transition-all duration-300">
 
-    <!-- Header -->
     <header class="fixed top-0 w-full z-50 glassmorphism">
         <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
             <div class="flex items-center space-x-2 cursor-pointer" onclick="navigateTo('home')">
@@ -58,15 +55,15 @@
                 <span class="text-xl font-bold tracking-tight text-brand-indigo">Market<span class="text-brand-orange">Lens</span>.ph</span>
             </div>
 
-            <nav class="hidden md:flex space-x-8 font-semibold text-sm text-gray-700">
-                <a href="javascript:void(0)" onclick="navigateTo('tiktok')" class="nav-link hover:text-brand-orange transition-colors">TikTok Finds</a>
-                <a href="javascript:void(0)" onclick="navigateTo('shopee')" class="nav-link hover:text-brand-orange transition-colors">Shopee Deals</a>
-                <a href="javascript:void(0)" onclick="navigateTo('vlogs')" class="nav-link hover:text-brand-orange transition-colors">Vlogs</a>
+            <nav id="mainNav" class="hidden md:flex space-x-8 font-semibold text-sm text-gray-700">
+                <a href="javascript:void(0)" onclick="navigateTo('home')" class="hover:text-brand-orange">Home</a>
+                <a href="javascript:void(0)" onclick="navigateTo('sports')" class="hover:text-brand-orange">Sports Shoes</a>
+                <a href="javascript:void(0)" onclick="navigateTo('vlogs')" class="hover:text-brand-orange">@FishGuyPH Vlogs</a>
             </nav>
 
             <div class="flex items-center space-x-4">
                 <div class="relative hidden sm:block">
-                    <input type="text" id="searchInput" oninput="handleSearch(this.value)" placeholder="Search finds..." class="bg-gray-100 border-none rounded-full py-2 px-4 pl-10 text-sm focus:ring-2 focus:ring-brand-orange w-48 lg:w-64">
+                    <input type="text" id="searchInput" oninput="handleSearch(this.value)" placeholder="Search budol..." class="bg-gray-100 border-none rounded-full py-2 px-4 pl-10 text-sm focus:ring-2 focus:ring-brand-orange w-48 lg:w-64">
                     <i data-lucide="search" class="absolute left-3 top-2.5 w-4 h-4 text-gray-400"></i>
                 </div>
                 <button class="md:hidden" onclick="toggleMobileMenu()"><i data-lucide="menu"></i></button>
@@ -74,74 +71,82 @@
         </div>
     </header>
 
-    <!-- Page Content Container -->
-    <div id="page-content" class="pt-20 min-h-screen">
-        <!-- Content injected by JavaScript -->
-    </div>
+    <div id="page-content" class="pt-20 min-h-screen"></div>
 
-    <!-- Product Modal -->
     <div id="productModal" class="fixed inset-0 z-[60] hidden items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
         <div class="bg-white w-full max-w-2xl rounded-3xl overflow-hidden shadow-2xl relative">
-            <button onclick="closeModal()" class="absolute top-4 right-4 z-10 bg-white/80 p-2 rounded-full hover:bg-white transition-colors">
-                <i data-lucide="x" class="w-6 h-6"></i>
-            </button>
-            <div id="modalBody" class="flex flex-col md:flex-row">
-                <!-- Modal content injected here -->
-            </div>
+            <button onclick="closeModal()" class="absolute top-4 right-4 z-10 bg-white/80 p-2 rounded-full hover:bg-white"><i data-lucide="x"></i></button>
+            <div id="modalBody" class="flex flex-col md:flex-row"></div>
         </div>
     </div>
 
-    <!-- Footer -->
     <footer class="bg-white border-t border-gray-100 pt-16 pb-8 mt-12">
-        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12 text-center md:text-left">
             <div>
-                <div class="flex items-center space-x-2 mb-4">
-                    <div class="bg-brand-orange p-1.5 rounded-lg"><i data-lucide="camera" class="text-white w-5 h-5"></i></div>
-                    <span class="text-xl font-bold text-brand-indigo">MarketLens.ph</span>
-                </div>
-                <p class="text-sm text-gray-500">Your curated guide to the best Shopee budol and TikTok viral finds in the Philippines.</p>
+                <span class="text-xl font-bold text-brand-indigo mb-4 block">MarketLens.ph</span>
+                <p class="text-sm text-gray-500">Curated by @FishGuyPH. The best sports gear and aesthetic finds in the PH.</p>
             </div>
             <div>
-                <h4 class="font-bold mb-4 text-gray-800">Categories</h4>
+                <h4 class="font-bold mb-4">Quick Links</h4>
                 <ul class="text-sm text-gray-500 space-y-2">
-                    <li><a href="#" onclick="navigateTo('tiktok')" class="hover:text-brand-orange">Gadgets</a></li>
-                    <li><a href="#" onclick="navigateTo('shopee')" class="hover:text-brand-orange">Home Aesthetic</a></li>
+                    <li><a href="https://www.tiktok.com/@fishguyph" target="_blank" class="hover:text-brand-orange">TikTok Account</a></li>
+                    <li><a href="#" class="hover:text-brand-orange">Shopee Store</a></li>
                 </ul>
             </div>
-            <div>
-                <h4 class="font-bold mb-4 text-gray-800">Newsletter</h4>
-                <div class="flex gap-2">
-                    <input type="email" placeholder="Email" class="bg-gray-100 rounded-lg p-2 text-xs w-full focus:ring-1 focus:ring-brand-orange border-none">
-                    <button class="bg-brand-indigo text-white px-3 py-2 rounded-lg text-xs font-bold">JOIN</button>
-                </div>
-            </div>
-            <div>
-                <h4 class="font-bold mb-4 text-gray-800">Follow Us</h4>
-                <div class="flex space-x-4">
-                    <i data-lucide="instagram" class="w-5 h-5 text-gray-400 hover:text-brand-orange cursor-pointer"></i>
-                    <i data-lucide="video" class="w-5 h-5 text-gray-400 hover:text-brand-orange cursor-pointer"></i>
+            <div class="col-span-1 md:col-span-2">
+                <h4 class="font-bold mb-4">Join the Budol List</h4>
+                <div class="flex gap-2 max-w-sm mx-auto md:mx-0">
+                    <input type="email" placeholder="Email" class="bg-gray-100 rounded-lg p-3 text-sm w-full border-none">
+                    <button class="bg-brand-indigo text-white px-6 py-2 rounded-lg font-bold">SUBSCRIBE</button>
                 </div>
             </div>
         </div>
-        <div class="text-center mt-12 text-[10px] text-gray-400 uppercase tracking-widest">© 2024 MarketLens.ph</div>
+        <div class="text-center mt-12 text-[10px] text-gray-400 tracking-widest uppercase">© 2026 MarketLens.ph | Powered by @FishGuyPH</div>
     </footer>
 
     <script>
         // --- DATA ---
+        // Replace 'shopeeUrl' with your real affiliate link
         const products = [
-            { id: 1, name: "Minimalist Wooden Alarm Clock", price: 499, oldPrice: 1200, rating: 4.9, reviews: "2k+", cat: "home", type: "tiktok", img: "https://images.unsplash.com/photo-1542496658-e33a6d0d50f6?auto=format&fit=crop&q=80&w=400", video: "https://www.w3schools.com/html/mov_bbb.mp4" },
-            { id: 2, name: "Instant Print Polaroid Camera", price: 3250, oldPrice: 4500, rating: 4.8, reviews: "800+", cat: "tech", type: "shopee", img: "https://images.unsplash.com/photo-1526170315870-ef6876f84ad9?auto=format&fit=crop&q=80&w=400" },
-            { id: 3, name: "Electric Handheld Milk Frother", price: 89, oldPrice: 250, rating: 4.7, reviews: "15k+", cat: "home", type: "tiktok", img: "https://images.unsplash.com/photo-1585333121115-46f9919f96b9?auto=format&fit=crop&q=80&w=400" },
-            { id: 4, name: "RGB LED Strip Lights (5m)", price: 199, oldPrice: 599, rating: 4.9, reviews: "45k+", cat: "tech", type: "shopee", img: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=400" },
-            { id: 5, name: "Portable Blender Juicer", price: 299, oldPrice: 800, rating: 4.6, reviews: "5k+", cat: "home", type: "tiktok", img: "https://images.unsplash.com/photo-1570222020676-003a317357eb?auto=format&fit=crop&q=80&w=400" },
-            { id: 6, name: "Wireless Noise Cancelling Buds", price: 1250, oldPrice: 2500, rating: 5.0, reviews: "1k+", cat: "tech", type: "shopee", img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=400" }
+            { 
+                id: 1, 
+                name: "Anta Shock The Game 6.0 - Basketball Shoes", 
+                price: 3200, 
+                oldPrice: 4800, 
+                rating: 4.9, 
+                reviews: "5k+", 
+                cat: "sports", 
+                type: "shopee", 
+                img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=400",
+                video: "https://www.tiktok.com/@fishguyph/video/73473123456789" // PLACE YOUR TIKTOK VIDEO LINK HERE
+            },
+            { 
+                id: 2, 
+                name: "World Balance Invictus 'Panda' Edition", 
+                price: 2699, 
+                oldPrice: 2899, 
+                rating: 4.8, 
+                reviews: "12k+", 
+                cat: "sports", 
+                type: "tiktok", 
+                img: "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?auto=format&fit=crop&q=80&w=400",
+                video: ""
+            },
+            { 
+                id: 3, 
+                name: "361 Degrees AG4 'Soaring' - Aaron Gordon", 
+                price: 4500, 
+                oldPrice: 6200, 
+                rating: 5.0, 
+                reviews: "1k+", 
+                cat: "sports", 
+                type: "shopee", 
+                img: "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&q=80&w=400",
+                video: ""
+            }
         ];
 
-        let currentState = {
-            view: 'home',
-            searchQuery: '',
-            activeCategory: 'all'
-        };
+        let currentState = { view: 'home', searchQuery: '' };
 
         // --- ENGINE ---
         function navigateTo(view) {
@@ -157,17 +162,6 @@
             render();
         }
 
-        function filterProducts() {
-            return products.filter(p => {
-                const matchesSearch = p.name.toLowerCase().includes(currentState.searchQuery);
-                const matchesView = currentState.view === 'home' || 
-                                    (currentState.view === 'tiktok' && p.type === 'tiktok') ||
-                                    (currentState.view === 'shopee' && p.type === 'shopee') ||
-                                    (currentState.view === 'vlogs');
-                return matchesSearch && matchesView;
-            });
-        }
-
         function openModal(id) {
             const p = products.find(prod => prod.id === id);
             const modal = document.getElementById('productModal');
@@ -179,121 +173,106 @@
                 </div>
                 <div class="w-full md:w-1/2 p-8 flex flex-col justify-center">
                     <div class="flex items-center gap-2 mb-2">
-                        <span class="bg-brand-orange/10 text-brand-orange text-[10px] font-bold px-2 py-0.5 rounded uppercase">${p.type} Find</span>
+                        <span class="bg-brand-orange/10 text-brand-orange text-[10px] font-bold px-2 py-0.5 rounded uppercase">${p.type} Budol</span>
                         <span class="text-yellow-500 font-bold text-sm">⭐ ${p.rating}</span>
                     </div>
                     <h2 class="text-2xl font-bold text-gray-900 mb-4">${p.name}</h2>
-                    <p class="text-gray-500 text-sm mb-6 leading-relaxed">This product went viral for its quality and affordability. Limited stocks available on Shopee Philippines.</p>
+                    <p class="text-gray-500 text-sm mb-6">Verified by @FishGuyPH. Highly recommended for performance and style.</p>
                     <div class="flex items-baseline gap-3 mb-8">
                         <span class="text-3xl font-bold text-brand-orange">₱${p.price.toLocaleString()}</span>
                         <span class="text-gray-400 line-through">₱${p.oldPrice.toLocaleString()}</span>
                     </div>
                     <div class="flex flex-col gap-3">
-                        <a href="https://shopee.ph" target="_blank" class="w-full py-4 rounded-xl shopee-gradient text-white font-bold text-center shadow-lg shadow-brand-orange/20 hover:scale-[1.02] transition-transform">Get it on Shopee</a>
-                        <button onclick="closeModal()" class="w-full py-4 rounded-xl bg-gray-100 text-gray-600 font-bold hover:bg-gray-200 transition-colors">Back to Browse</button>
+                        <a href="https://shopee.ph" target="_blank" class="w-full py-4 rounded-xl shopee-gradient text-white font-bold text-center shadow-lg">Get it on Shopee</a>
+                        ${p.video ? `<a href="${p.video}" target="_blank" class="w-full py-4 rounded-xl tiktok-gradient text-white font-bold text-center">Watch @FishGuyPH Review</a>` : ''}
                     </div>
                 </div>
             `;
-            
             modal.classList.remove('hidden');
             modal.classList.add('flex');
             lucide.createIcons();
         }
 
-        function closeModal() {
-            document.getElementById('productModal').classList.add('hidden');
-        }
+        function closeModal() { document.getElementById('productModal').classList.add('hidden'); }
 
-        // --- RENDERERS ---
         function render() {
             const container = document.getElementById('page-content');
-            const filtered = filterProducts();
+            const filtered = products.filter(p => {
+                const matchesSearch = p.name.toLowerCase().includes(currentState.searchQuery);
+                const matchesView = currentState.view === 'home' || 
+                                    (currentState.view === 'sports' && p.cat === 'sports') ||
+                                    (currentState.view === 'vlogs' && p.video !== '');
+                return matchesSearch && matchesView;
+            });
             
             let html = '';
 
-            // Render Hero (Only on Home)
+            // Hero Section (Home Only)
             if (currentState.view === 'home' && !currentState.searchQuery) {
                 html += `
                     <section class="max-w-7xl mx-auto px-4 py-8">
-                        <div class="relative rounded-3xl overflow-hidden h-[400px] shadow-2xl group cursor-pointer" onclick="openModal(1)">
-                            <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=1200" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent p-10 flex flex-col justify-end">
-                                <span class="bg-brand-orange text-white text-xs font-bold px-3 py-1 rounded-full w-fit mb-4 uppercase tracking-widest">🔥 Hot Deal</span>
-                                <h1 class="text-white text-4xl md:text-5xl font-black mb-4 max-w-2xl">The $5 Aesthetic Desk Setup Everyone is Buying</h1>
-                                <p class="text-gray-300 max-w-lg hidden md:block">We found the original supplier for the viral TikTok desk clock. Save over 60% with our exclusive Shopee link.</p>
+                        <div class="relative rounded-3xl overflow-hidden h-[450px] shadow-2xl group cursor-pointer" onclick="openModal(1)">
+                            <img src="https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&q=80&w=1200" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent p-10 flex flex-col justify-end">
+                                <span class="bg-brand-orange text-white text-xs font-bold px-3 py-1 rounded-full w-fit mb-4 uppercase tracking-widest">🏆 Editor's Pick</span>
+                                <h1 class="text-white text-4xl md:text-5xl font-black mb-4">The Best Performance Shoes for Pinoy Hoop Fans</h1>
+                                <p class="text-gray-300 max-w-lg hidden md:block">We tested the top Anta and World Balance releases. Here's what's actually worth your money.</p>
                             </div>
                         </div>
                     </section>
                 `;
             }
 
-            // Render Grid Section
+            // Grid Section
             html += `
-                <section class="max-w-7xl mx-auto px-4 py-8 flex flex-col lg:flex-row gap-8">
-                    <div class="w-full lg:w-3/4">
-                        <h2 class="text-2xl font-bold mb-8 flex items-center gap-2 uppercase tracking-tight">
-                            ${currentState.view === 'home' ? 'Latest Discoveries' : currentState.view.toUpperCase() + ' Collections'}
-                            <span class="text-brand-orange">${filtered.length}</span>
+                <section class="max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-4 gap-8">
+                    <div class="lg:col-span-3">
+                        <h2 class="text-2xl font-bold mb-8 uppercase tracking-tight">
+                            ${currentState.view === 'home' ? 'Trending Discoveries' : currentState.view.replace('-', ' ') + ' Picks'}
+                            <span class="text-brand-orange ml-2">${filtered.length}</span>
                         </h2>
-                        
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            ${filtered.length ? filtered.map(p => `
-                                <div class="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all overflow-hidden group">
+                            ${filtered.map(p => `
+                                <div class="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-all overflow-hidden group">
                                     <div class="aspect-square relative overflow-hidden bg-gray-100 cursor-pointer" onclick="openModal(${p.id})">
-                                        <img src="${p.img}" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" alt="${p.name}">
-                                        <div class="absolute top-2 right-2 bg-white/90 backdrop-blur rounded-full px-2 py-1 text-[10px] font-bold shadow-sm">⭐ ${p.rating}</div>
+                                        <img src="${p.img}" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                                        <div class="absolute top-2 right-2 bg-white/90 rounded-full px-2 py-1 text-[10px] font-bold">⭐ ${p.rating}</div>
                                     </div>
                                     <div class="p-5">
-                                        <h3 class="font-bold text-gray-800 line-clamp-2 h-12 mb-3 leading-snug">${p.name}</h3>
+                                        <h3 class="font-bold text-gray-800 line-clamp-2 h-12 mb-3">${p.name}</h3>
                                         <div class="flex items-center justify-between mb-5">
                                             <span class="text-brand-orange text-xl font-bold italic">₱${p.price.toLocaleString()}</span>
                                             <span class="text-gray-400 text-xs line-through">₱${p.oldPrice.toLocaleString()}</span>
                                         </div>
                                         <div class="grid grid-cols-2 gap-2">
-                                            <a href="https://shopee.ph" target="_blank" class="text-center py-2.5 rounded-lg shopee-gradient text-white text-[11px] font-bold flex items-center justify-center gap-1.5 shadow-sm hover:opacity-90">
-                                                <i data-lucide="shopping-bag" class="w-3.5 h-3.5"></i> BUY
+                                            <a href="https://shopee.ph" target="_blank" class="text-center py-2 rounded-lg shopee-gradient text-white text-[11px] font-bold flex items-center justify-center gap-1.5 shadow-sm">
+                                                <i data-lucide="shopping-bag" class="w-3"></i> BUY
                                             </a>
-                                            <button onclick="openModal(${p.id})" class="text-center py-2.5 rounded-lg bg-gray-100 text-gray-700 text-[11px] font-bold flex items-center justify-center gap-1.5 hover:bg-gray-200">
-                                                <i data-lucide="eye" class="w-3.5 h-3.5"></i> DETAILS
+                                            <button onclick="openModal(${p.id})" class="text-center py-2 rounded-lg bg-gray-100 text-gray-700 text-[11px] font-bold flex items-center justify-center gap-1.5">
+                                                <i data-lucide="eye" class="w-3"></i> DETAILS
                                             </button>
                                         </div>
                                     </div>
                                 </div>
-                            `).join('') : `
-                                <div class="col-span-full py-20 text-center">
-                                    <i data-lucide="search-x" class="w-16 h-16 text-gray-200 mx-auto mb-4"></i>
-                                    <p class="text-gray-400">Oops! We couldn't find any "${currentState.searchQuery}" finds today.</p>
-                                </div>
-                            `}
+                            `).join('')}
                         </div>
                     </div>
 
-                    <!-- Side Ads & Links -->
-                    <aside class="w-full lg:w-1/4 space-y-8">
-                        <div class="bg-brand-indigo rounded-2xl p-6 text-white overflow-hidden relative">
-                            <div class="relative z-10">
-                                <h3 class="font-bold text-lg mb-2">Voucher Alert! 🎫</h3>
-                                <p class="text-indigo-200 text-xs mb-4">Get 20% off your next 'Budol' with code <strong>MLENS20</strong></p>
-                                <button class="bg-white text-brand-indigo w-full py-2 rounded font-bold text-xs uppercase tracking-tighter">Copy Code</button>
-                            </div>
-                            <div class="absolute -bottom-4 -right-4 opacity-10"><i data-lucide="ticket" class="w-24 h-24"></i></div>
+                    <aside class="space-y-8">
+                        <div class="bg-brand-indigo rounded-2xl p-6 text-white text-center">
+                            <i data-lucide="video" class="w-8 h-8 mx-auto mb-4 text-brand-orange"></i>
+                            <h3 class="font-bold mb-2 text-sm uppercase">Join @FishGuyPH</h3>
+                            <p class="text-xs text-indigo-200 mb-4">Never miss a Shopee Budol! Follow me on TikTok for live reviews.</p>
+                            <a href="https://www.tiktok.com/@fishguyph" target="_blank" class="block w-full py-2 rounded bg-white text-brand-indigo font-bold text-xs uppercase">Follow Now</a>
                         </div>
-
                         <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
-                            <h3 class="font-bold mb-4 text-xs uppercase text-gray-400 tracking-widest">Budol Guides</h3>
+                            <h3 class="font-bold mb-4 text-xs uppercase text-gray-400 tracking-widest">Buying Guides</h3>
                             <ul class="space-y-4">
-                                <li class="flex gap-3 group cursor-pointer" onclick="navigateTo('tiktok')">
-                                    <div class="w-12 h-12 bg-gray-100 rounded-lg flex-shrink-0"></div>
+                                <li class="flex gap-3 group cursor-pointer" onclick="navigateTo('sports')">
+                                    <div class="w-12 h-12 bg-gray-100 rounded-lg overflow-hidden"><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=100"></div>
                                     <div>
-                                        <p class="text-xs font-bold group-hover:text-brand-orange transition-colors">Top 5 Aesthetic Kitchen Finds</p>
-                                        <span class="text-[10px] text-gray-400">Review • 2 mins read</span>
-                                    </div>
-                                </li>
-                                <li class="flex gap-3 group cursor-pointer" onclick="navigateTo('shopee')">
-                                    <div class="w-12 h-12 bg-gray-100 rounded-lg flex-shrink-0"></div>
-                                    <div>
-                                        <p class="text-xs font-bold group-hover:text-brand-orange transition-colors">How to get free shipping 24/7</p>
-                                        <span class="text-[10px] text-gray-400">Tips • 5 mins read</span>
+                                        <p class="text-xs font-bold group-hover:text-brand-orange">Top 5 Basketball Shoes for Outdoor Courts</p>
+                                        <span class="text-[10px] text-gray-400">Review • 3 mins read</span>
                                     </div>
                                 </li>
                             </ul>
@@ -301,20 +280,14 @@
                     </aside>
                 </section>
             `;
-
             container.innerHTML = html;
             lucide.createIcons();
         }
 
-        // Initialize
-        window.onload = () => {
-            render();
-            lucide.createIcons();
-        };
+        window.onload = render;
 
         function toggleMobileMenu() {
-            // Simple alert for menu in demo
-            const nav = document.querySelector('nav');
+            const nav = document.getElementById('mainNav');
             nav.classList.toggle('hidden');
             nav.classList.toggle('flex');
             nav.classList.toggle('flex-col');
